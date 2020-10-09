@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <!-- Include other widget or layout tags here. These are considered
+            "child views" or "children" of the linear layout -->
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:background="#0000"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:contentDescription="TODO des..."
+        android:src="@drawable/default_image"
+        />
+    <!--
+          android:layout_centerVertical="true"
+  android:layout_centerHorizontal="true"
+  android:src="@drawable/abc"/>
+
+       -->
+
+    <TextView android:id="@+id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:layout_gravity="center"
+        android:gravity="center"
+        />
+
+    <TextView android:id="@id/text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceListItemSecondary"
+        android:layout_gravity="center"
+        />
+
+</LinearLayout>

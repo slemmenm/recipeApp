@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,12 +37,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View view = inflater.inflate(
-                android.R.layout.simple_list_item_2,
+                R.layout.recycler_view_tile,
                 parent,
                 false);
 
-        TextView title = view.findViewById(android.R.id.text1);
-        TextView description = view.findViewById(android.R.id.text2);
+        TextView title = view.findViewById(R.id.text1);
+        TextView description = view.findViewById(R.id.text2);
 
         return new ViewHolder(view, title, description);
     }
