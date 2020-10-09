@@ -10,7 +10,7 @@
             "child views" or "children" of the linear layout -->
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/recycler_view_imageButton"
         android:background="#0000"
         android:scaleType="fitXY"
         android:adjustViewBounds="true"
