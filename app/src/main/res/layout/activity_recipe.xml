@@ -7,12 +7,13 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/default_image"/>
+            android:src="@drawable/default_image"
+            android:contentDescription="@string/recipe_image_description" />
 
         <EditText
             android:id="@+id/recipe_view_title"
@@ -22,7 +23,9 @@
             android:layout_gravity="center"
             android:text="Your recipe title..."
             android:textSize="30dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:autofillHints="Add your recipe title here"
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/recycler_view_description"
@@ -31,6 +34,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:gravity="center|top"
-            android:text="Add your recipe description here..." />
+            android:text="Add your recipe description here..."
+            android:autofillHints="Add your recipe description here"
+            android:inputType="text" />
     </LinearLayout>
 </ScrollView>
