@@ -14,20 +14,33 @@ import java.util.ArrayList;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    private RecyclerViewClickListener listener;
+
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private RecyclerViewClickListener listener;
+
         public TextView title;
         public TextView description;
 
-        public ViewHolder(View parent, TextView title, TextView description) {
+        public ViewHolder(View parent, TextView title, TextView description, RecyclerViewClickListener listener) {
             super(parent);
+            this.listener = listener;
             this.title = title;
             this.description = description;
+            parent.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            listener.onClick(v, getAdapterPosition());
         }
     }
 
     private ArrayList<Recipe> recipes;
 
-    public RecipeAdapter(ArrayList<Recipe> recipes) {
+    public RecipeAdapter(ArrayList<Recipe> recipes, RecyclerViewClickListener listener) {
+        this.listener = listener;
         this.recipes = recipes;
     }
 
@@ -44,7 +57,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         TextView title = view.findViewById(R.id.text1);
         TextView description = view.findViewById(R.id.text2);
 
-        return new ViewHolder(view, title, description);
+        return new ViewHolder(view, title, description, listener);
     }
 
     @Override

@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.UserManager;
+import android.util.Log;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -25,7 +28,15 @@ public class RecyclerViewActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(gridLayoutManager);
 
         ArrayList<Recipe> data = RecipeManager.getRecipes();
-        RecipeAdapter adapter = new RecipeAdapter(data);
+        RecyclerViewClickListener listener = new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Log.d("listener2", "position" + position);
+                //Intent intent = new Intent(RecyclerViewActivity.this, RecipeActivity.class);
+                //RecyclerViewActivity.this.startActivity(intent);
+            }
+        };
+        RecipeAdapter adapter = new RecipeAdapter(data, listener);
         recyclerView.setAdapter(adapter);
     }
 }
