@@ -22,13 +22,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
         public TextView title;
         public TextView description;
+        public ImageButton parentView;
 
         public ViewHolder(View parent, TextView title, TextView description, RecyclerViewClickListener listener) {
             super(parent);
             this.listener = listener;
             this.title = title;
             this.description = description;
-            parent.setOnClickListener(this);
+            parentView = (ImageButton) parent.findViewById(R.id.recycler_view_imageButton);
+            parentView.setOnClickListener(this);
         }
 
         @Override
