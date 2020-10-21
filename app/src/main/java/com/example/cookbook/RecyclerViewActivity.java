@@ -32,8 +32,8 @@ public class RecyclerViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 Log.d("listener2", "position" + position);
-                //Intent intent = new Intent(RecyclerViewActivity.this, RecipeActivity.class);
-                //RecyclerViewActivity.this.startActivity(intent);
+                Intent intent = new Intent(RecyclerViewActivity.this, RecipeActivity.class);
+                RecyclerViewActivity.this.startActivity(intent);
             }
         };
         RecipeAdapter adapter = new RecipeAdapter(data, listener);
