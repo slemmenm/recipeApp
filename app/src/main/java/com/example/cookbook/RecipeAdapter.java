@@ -29,7 +29,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             this.listener = listener;
             this.title = title;
             this.description = description;
-            parentView = (ImageButton) parent.findViewById(R.id.recycler_view_imageButton);
+            parentView = parent.findViewById(R.id.recycler_view_imageButton);
             parentView.setOnClickListener(this);
         }
 
