@@ -10,10 +10,10 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/default_image"
-            android:contentDescription="@string/recipe_image_description" />
+            android:layout_width="match_parent"
+            android:layout_height="198dp"
+            android:contentDescription="@string/recipe_image_description"
+            android:src="@drawable/baseline_restaurant_menu_black_48dp" />
 
         <EditText
             android:id="@+id/recipe_view_title"
@@ -33,9 +33,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:gravity="center|top"
-            android:text="Add your recipe description here..."
             android:autofillHints="Add your recipe description here"
-            android:inputType="text" />
+            android:gravity="center|top"
+            android:inputType="textMultiLine|text"
+            android:text="Add your recipe description here..." />
     </LinearLayout>
 </ScrollView>

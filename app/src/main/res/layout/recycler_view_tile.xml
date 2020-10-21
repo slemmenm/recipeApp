@@ -42,7 +42,7 @@
             android:contentDescription="TODO des..."
             android:gravity="center"
             android:scaleType="fitXY"
-            android:src="@drawable/default_image" />
+            android:src="@drawable/baseline_restaurant_menu_black_48dp" />
 
         <TextView
             android:id="@+id/text1"
