@@ -1,0 +1,14 @@
+LISTENER
+    gliederung
+    aufbau
+
+    an imagebutton anhängen oder direkt an viewCard/linearLayout
+
+KAMERA
+    fotos aufnehmen
+
+    speichern in file getExternalFielesDir()
+    pro foto 1 file
+
+    strings auch in diesem file, gleiche speicher methode
+    aufbau mvc: in model ref auf pfad für foto und ref für strings in anderem file
