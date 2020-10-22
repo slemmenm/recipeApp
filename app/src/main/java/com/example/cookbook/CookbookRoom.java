@@ -6,10 +6,10 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class CookbookRoom {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     public int id;
 
     @ColumnInfo
-    public String titel;
+    public String title;
     public String description;
 }

@@ -40,4 +40,12 @@ public class RecyclerViewActivity extends AppCompatActivity {
         RecipeAdapter adapter = new RecipeAdapter(data, listener);
         recyclerView.setAdapter(adapter);
     }
+
+    // to read data from Room
+    // TODO or in onResume???
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
 }
