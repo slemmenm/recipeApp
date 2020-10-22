@@ -33,6 +33,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
             public void onClick(View view, int position) {
                 Log.d("listener2", "position" + position);
                 Intent intent = new Intent(RecyclerViewActivity.this, RecipeActivity.class);
+                intent.putExtra("id_position", position);
                 RecyclerViewActivity.this.startActivity(intent);
             }
         };
