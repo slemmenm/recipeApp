@@ -96,18 +96,24 @@ public class RecipeActivity extends AppCompatActivity {
     }
 
     // read one recipe from Room
+    // TODO if possible and display it
     private void readOneRecipeFromRoom(int id) {
-        Runnable read = () -> {
-            CookbookRoomDatabase db = Room.databaseBuilder(RecipeActivity.this, CookbookRoomDatabase.class, ROOM_DB).build();
+        Runnable read = new Runnable() {
+            @Override
+            public void run() {
+                CookbookRoomDatabase db = Room.databaseBuilder(RecipeActivity.this, CookbookRoomDatabase.class, ROOM_DB).build();
 
-            // read only if row with id = id exists, db not prepopulate
-            if(db.cookbookRoomDao().recipeExists(id)) {
-                CookbookRoom recipe = db.cookbookRoomDao().getOneRecipe(id);
-                Log.d("listener2", recipe.id + " title:  " + recipe.title + "  description: " + recipe.description);
+                // read only if row with id = id exists, db not prepopulate
+                if(db.cookbookRoomDao().recipeExists(id)) {
+                    CookbookRoom recipe = db.cookbookRoomDao().getOneRecipe(id);
+                    Log.d("listener2", recipe.id + " title:  " + recipe.title + "  description: " + recipe.description);
+                    //title.setText(recipe.title);
+                    //description.setText(recipe.description);
+                }
+                db.close();
             }
-            db.close();
         };
-
+        //runOnUiThread(read);
         new Thread(read).start();
     }
 
