@@ -60,7 +60,7 @@ public class RecipeActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        writeDatabaseWithRoom();
+        writeOneRecipeToRoom();
 
     }
 
@@ -72,10 +72,12 @@ public class RecipeActivity extends AppCompatActivity {
 
         position = this.getIntent().getIntExtra("id_position", -1);
         Log.d("listener2", "onStart" + position);
+
+        readOneRecipeFromRoom(position);
     }
 
-    // write to Room
-    private void writeDatabaseWithRoom() {
+    // write one recipe to Room
+    private void writeOneRecipeToRoom() {
         Runnable write = new Runnable() {
             @Override
             public void run() {
@@ -93,8 +95,24 @@ public class RecipeActivity extends AppCompatActivity {
         new Thread(write).start();
     }
 
+    // read one recipe from Room
+    private void readOneRecipeFromRoom(int id) {
+        Runnable read = () -> {
+            CookbookRoomDatabase db = Room.databaseBuilder(RecipeActivity.this, CookbookRoomDatabase.class, ROOM_DB).build();
+
+            // read only if row with id = id exists, db not prepopulate
+            if(db.cookbookRoomDao().recipeExists(id)) {
+                CookbookRoom recipe = db.cookbookRoomDao().getOneRecipe(id);
+                Log.d("listener2", recipe.id + " title:  " + recipe.title + "  description: " + recipe.description);
+            }
+            db.close();
+        };
+
+        new Thread(read).start();
+    }
+
     // read from Room
-    private void readDatabaseWithRoom() {
+    private void readAllRecipesFromRoom() {
         Runnable read = new Runnable() {
             @Override
             public void run() {
