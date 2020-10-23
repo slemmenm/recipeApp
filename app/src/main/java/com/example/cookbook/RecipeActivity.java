@@ -14,7 +14,7 @@ import java.util.List;
 
 public class RecipeActivity extends AppCompatActivity {
 
-    private static final String DEBUG_TAG = "debugging Room";
+    private static final String DEBUG_TAG = "debuggingRoom";
     private static final String ROOM_DB = "room.db";
     private EditText title;
     private EditText description;
@@ -117,7 +117,7 @@ public class RecipeActivity extends AppCompatActivity {
         new Thread(read).start();
     }
 
-    // read from Room
+/*    // read from Room
     private void readAllRecipesFromRoom() {
         Runnable read = new Runnable() {
             @Override
@@ -134,6 +134,6 @@ public class RecipeActivity extends AppCompatActivity {
         };
 
         new Thread(read).start();
-    }
+    }*/
 
 }
