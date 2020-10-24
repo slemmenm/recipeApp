@@ -51,7 +51,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
                 intent.putExtra("id_position", position);
                 intent.putExtra("title", data.get(position).getTitle());
                 intent.putExtra("description", data.get(position).getDescription());
-                RecyclerViewActivity.this.startActivity(intent);
+                RecyclerViewActivity.this.startActivityForResult(intent, 1);
             }
         };
 
@@ -65,8 +65,24 @@ public class RecyclerViewActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+    }
 
+    // get title, description back from recipe, -> update data
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                int position = data.getIntExtra("position", -1);
+                Log.d("listener2", "POSITION: " + position);
+                String title = data.getStringExtra("title");
+                String description = data.getStringExtra("description");
+                Log.d("listener2", "test....works");
 
+                // update data
+
+            }
+        }
     }
 
     // read from Room

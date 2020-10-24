@@ -70,8 +70,20 @@ public class RecipeActivity extends AppCompatActivity {
         super.onPause();
 
         writeOneRecipeToRoom();
-        Log.d("listener", "onPause Recipe");
+        Log.d("listener2", "onPause Recipe");
 
+
+    }
+    @Override
+    public void onBackPressed() {
+        // your code.
+        Log.d("listener2", "back pressed");
+        Intent intent = new Intent();
+        intent.putExtra("position", position);
+        intent.putExtra("title", this.title.getText().toString());
+        intent.putExtra("description", this.description.getText().toString());
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     // load data from Room
