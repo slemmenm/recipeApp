@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:text="Your recipe title..."
+            android:text="recipe title..."
             android:textSize="30dp"
             android:textStyle="bold"
             android:autofillHints="Add your recipe title here"
@@ -36,6 +36,6 @@
             android:autofillHints="Add your recipe description here"
             android:gravity="center|top"
             android:inputType="textMultiLine|text"
-            android:text="Add your recipe description here..." />
+            android:text="recipe description..." />
     </LinearLayout>
 </ScrollView>
