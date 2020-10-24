@@ -26,6 +26,8 @@ public class RecipeActivity extends AppCompatActivity {
 
         title = findViewById(R.id.recipe_view_title);
         description = findViewById(R.id.recipe_view_description);
+        Log.d("listener2", "onCreate Recipe");
+
         /*
         title.addTextChangedListener(new TextWatcher() {
             @Override
@@ -53,6 +55,13 @@ public class RecipeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        // retrieve data for this recipe
+        final String title = this.getIntent().getStringExtra("title");
+        this.title.setText(title);
+
+        final String description = this.getIntent().getStringExtra("description");
+        this.description.setText(description);
+
     }
 
     // to save data to Room
@@ -61,11 +70,13 @@ public class RecipeActivity extends AppCompatActivity {
         super.onPause();
 
         writeOneRecipeToRoom();
+        Log.d("listener", "onPause Recipe");
 
     }
 
     // load data from Room
     private int position;
+
     @Override
     protected void onStart() {
         super.onStart();

@@ -19,12 +19,17 @@ public class RecyclerViewActivity extends AppCompatActivity {
     private static final String DEBUG_TAG = "debuggingRoom";
     private static final String ROOM_DB = "room.db";
 
+    private ArrayList<Recipe> data;
+    private RecyclerView recyclerView;
+    private RecyclerViewClickListener listener;
+    private RecipeAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_view);
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
 
         // GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(),3);
         // Creates a vertical GridLayoutManager
@@ -32,18 +37,25 @@ public class RecyclerViewActivity extends AppCompatActivity {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(gridLayoutManager);
 
-        ArrayList<Recipe> data = RecipeManager.getRecipes();
+        data = RecipeManager.getRecipes();
+
+        // read all data once
         readAllRecipesFromRoom(data);
-        RecyclerViewClickListener listener = new RecyclerViewClickListener() {
+
+        // create listener once
+        listener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
                 Log.d("listener2", "position" + position);
                 Intent intent = new Intent(RecyclerViewActivity.this, RecipeActivity.class);
                 intent.putExtra("id_position", position);
+                intent.putExtra("title", data.get(position).getTitle());
+                intent.putExtra("description", data.get(position).getDescription());
                 RecyclerViewActivity.this.startActivity(intent);
             }
         };
-        RecipeAdapter adapter = new RecipeAdapter(data, listener);
+
+        adapter = new RecipeAdapter(data, listener);
         recyclerView.setAdapter(adapter);
     }
 
@@ -52,6 +64,8 @@ public class RecyclerViewActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+
 
     }
 
