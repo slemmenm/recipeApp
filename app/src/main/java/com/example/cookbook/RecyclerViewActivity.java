@@ -55,8 +55,9 @@ public class RecyclerViewActivity extends AppCompatActivity {
             }
         };
 
-        adapter = new RecipeAdapter(data, listener);
-        recyclerView.setAdapter(adapter);
+        // in onResume() -> good idea?
+        //adapter = new RecipeAdapter(data, listener);
+        //recyclerView.setAdapter(adapter);
     }
 
     // to read data from Room
@@ -65,6 +66,13 @@ public class RecyclerViewActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter = new RecipeAdapter(data, listener);
+        recyclerView.setAdapter(adapter);
     }
 
     // get title, description back from recipe, -> update data
@@ -80,7 +88,8 @@ public class RecyclerViewActivity extends AppCompatActivity {
                 Log.d("listener2", "test....works");
 
                 // update data
-
+                Recipe recipe = new Recipe(title, description);
+                this.data.set(position, recipe);
             }
         }
     }
