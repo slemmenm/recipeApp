@@ -21,14 +21,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         private RecyclerViewClickListener listener;
 
         public TextView title;
-        public TextView description;
+        //public TextView description;
         public ImageButton parentView;
 
-        public ViewHolder(View parent, TextView title, TextView description, RecyclerViewClickListener listener) {
+        public ViewHolder(View parent, TextView title, RecyclerViewClickListener listener) {
             super(parent);
             this.listener = listener;
             this.title = title;
-            this.description = description;
+            //this.description = description;
             parentView = parent.findViewById(R.id.recycler_view_imageButton);
             parentView.setOnClickListener(this);
         }
@@ -57,16 +57,16 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                 false);
 
         TextView title = view.findViewById(R.id.text1);
-        TextView description = view.findViewById(R.id.text2);
+        //TextView description = view.findViewById(R.id.text2);
 
-        return new ViewHolder(view, title, description, listener);
+        return new ViewHolder(view, title, listener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Recipe recipe = this.recipes.get(position);
         holder.title.setText(recipe.getTitle());
-        holder.description.setText(recipe.getDescription());
+        //holder.description.setText(recipe.getDescription());
     }
 
     @Override
