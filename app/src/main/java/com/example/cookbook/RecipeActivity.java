@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import java.util.List;
 
@@ -23,6 +25,8 @@ public class RecipeActivity extends AppCompatActivity {
 
     private static final String FILE_TYPE = "image/*";
     private static final int OPEN_DOCUMENT_CODE = 1;
+    ImageView imageView;
+    Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +57,16 @@ public class RecipeActivity extends AppCompatActivity {
 
             }
         });*/
+
+        imageView = findViewById(R.id.recipe_image_view);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                selectImage();
+                //galleryAddPic();
+            }
+        });
 
     }
 
@@ -176,9 +190,10 @@ public class RecipeActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int req, int res, Intent data) {
         super.onActivityResult(req, res, data);
-        if(res == Activity.RESULT_OK) {
-            Uri uri = data.getData();
-
+        if(req == OPEN_DOCUMENT_CODE && res == Activity.RESULT_OK) {
+            imageUri = data.getData();
+            Log.d("listener2", "Image src: ..." + imageUri);
+            imageView.setImageURI(imageUri);
 
         }
 
