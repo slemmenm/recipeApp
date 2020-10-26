@@ -3,7 +3,9 @@ package com.example.cookbook;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,6 +20,9 @@ public class RecipeActivity extends AppCompatActivity {
     private static final String ROOM_DB = "room.db";
     private EditText title;
     private EditText description;
+
+    private static final String FILE_TYPE = "image/*";
+    private static final int OPEN_DOCUMENT_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,7 @@ public class RecipeActivity extends AppCompatActivity {
 
             }
         });*/
+
     }
 
 
@@ -158,5 +164,25 @@ public class RecipeActivity extends AppCompatActivity {
 
         new Thread(read).start();
     }*/
+
+    private void selectImage() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType(FILE_TYPE);
+
+        startActivityForResult(intent, OPEN_DOCUMENT_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int req, int res, Intent data) {
+        super.onActivityResult(req, res, data);
+        if(res == Activity.RESULT_OK) {
+            Uri uri = data.getData();
+
+
+        }
+
+    }
+
 
 }
