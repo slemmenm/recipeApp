@@ -26,7 +26,8 @@ public class RecipeActivity extends AppCompatActivity {
     private static final String FILE_TYPE = "image/*";
     private static final int OPEN_DOCUMENT_CODE = 1;
     ImageView imageView;
-    Uri imageUri;
+    private Uri imageUri;
+    private String imageUriString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,23 +65,30 @@ public class RecipeActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 selectImage();
-                //galleryAddPic();
             }
         });
 
     }
 
-
+    // retrieve data for this recipe
     @Override
     protected void onResume() {
         super.onResume();
 
-        // retrieve data for this recipe
+
         final String title = this.getIntent().getStringExtra("title");
         this.title.setText(title);
 
         final String description = this.getIntent().getStringExtra("description");
         this.description.setText(description);
+
+        final String imageUriString = this.getIntent().getStringExtra("imageUriString");
+        if(imageUriString != null) {
+            this.imageUriString = imageUriString;
+            Log.d("listener2", this.imageUriString);
+            imageUri = Uri.parse(imageUriString);
+            this.imageView.setImageURI(Uri.parse(imageUriString));
+        }
 
     }
 
@@ -102,6 +110,7 @@ public class RecipeActivity extends AppCompatActivity {
         intent.putExtra("position", position);
         intent.putExtra("title", this.title.getText().toString());
         intent.putExtra("description", this.description.getText().toString());
+        intent.putExtra("imageUriString", this.imageUriString);
         setResult(RESULT_OK, intent);
         finish();
     }
@@ -116,7 +125,7 @@ public class RecipeActivity extends AppCompatActivity {
         position = this.getIntent().getIntExtra("id_position", -1);
         Log.d("listener2", "onStart" + position);
 
-        readOneRecipeFromRoom(position);
+        //readOneRecipeFromRoom(position);
     }
 
     // write one recipe to Room
@@ -128,6 +137,9 @@ public class RecipeActivity extends AppCompatActivity {
                 recipe.id = position;
                 recipe.title = title.getText().toString();
                 recipe.description = description.getText().toString();
+                if(imageUri != null) {
+                    recipe.imageUriString = imageUri.toString();
+                }
 
                 CookbookRoomDatabase db = Room.databaseBuilder(RecipeActivity.this, CookbookRoomDatabase.class, ROOM_DB).build();
                 db.cookbookRoomDao().insert(recipe);
@@ -139,7 +151,7 @@ public class RecipeActivity extends AppCompatActivity {
     }
 
     // read one recipe from Room
-    // TODO if possible and display it
+    // TODO if possible and display it, not needed!
     private void readOneRecipeFromRoom(int id) {
         Runnable read = new Runnable() {
             @Override
@@ -181,6 +193,7 @@ public class RecipeActivity extends AppCompatActivity {
 
     private void selectImage() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType(FILE_TYPE);
 
@@ -192,12 +205,10 @@ public class RecipeActivity extends AppCompatActivity {
         super.onActivityResult(req, res, data);
         if(req == OPEN_DOCUMENT_CODE && res == Activity.RESULT_OK) {
             imageUri = data.getData();
+            imageUriString = imageUri.toString();
             Log.d("listener2", "Image src: ..." + imageUri);
             imageView.setImageURI(imageUri);
-
         }
-
     }
-
 
 }

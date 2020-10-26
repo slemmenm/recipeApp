@@ -1,5 +1,7 @@
 package com.example.cookbook;
 
+import android.net.Uri;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -12,4 +14,5 @@ public class CookbookRoom {
     @ColumnInfo
     public String title;
     public String description;
+    public String imageUriString;
 }

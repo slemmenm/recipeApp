@@ -1,10 +1,12 @@
 package com.example.cookbook;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,6 +54,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
                 intent.putExtra("id_position", position);
                 intent.putExtra("title", data.get(position).getTitle());
                 intent.putExtra("description", data.get(position).getDescription());
+                intent.putExtra("imageUri", data.get(position).getImageUriString());
                 RecyclerViewActivity.this.startActivityForResult(intent, 1);
             }
         };
@@ -96,10 +99,11 @@ public class RecyclerViewActivity extends AppCompatActivity {
                 Log.d("listener2", "POSITION: " + position);
                 String title = data.getStringExtra("title");
                 String description = data.getStringExtra("description");
+                String imageUriString = data.getStringExtra("imageUriString");
                 Log.d("listener2", "test....works");
 
                 // update data
-                Recipe recipe = new Recipe(title, description);
+                Recipe recipe = new Recipe(title, description, imageUriString);
                 this.data.set(position, recipe);
             }
         }
@@ -114,9 +118,9 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
                 List<CookbookRoom> entries = db.cookbookRoomDao().getRecipes();
                 for (CookbookRoom recipe : entries) {
-                    Recipe tmp = new Recipe(recipe.title, recipe.description);
+                    Recipe tmp = new Recipe(recipe.title, recipe.description, recipe.imageUriString);
                     data.set(recipe.id, tmp);
-                    Log.d(DEBUG_TAG, "DB CookbookRoom | " + recipe.id + " | " + recipe.title);
+                    Log.d(DEBUG_TAG, "DB CookbookRoom | " + recipe.id + " | " + recipe.title + " LINK: " + recipe.imageUriString);
                 }
 
                 db.close();

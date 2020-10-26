@@ -16,7 +16,7 @@ public final class RecipeManager {
         RecipeManager.recipes = new ArrayList<Recipe>();
 
         for (int i = 1; i <= 100; i++) {
-            RecipeManager.recipes.add(new Recipe("recipe title... ", "recipe description..."));
+            RecipeManager.recipes.add(new Recipe("recipe title... ", "recipe description...", null ));
         }
     }
 
