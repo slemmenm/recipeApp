@@ -22,6 +22,8 @@ public class RecyclerViewActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerViewClickListener listener;
     private RecipeAdapter adapter;
+    private GridLayoutManager gridLayoutManager;
+    private static int index = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
         // GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(),3);
         // Creates a vertical GridLayoutManager
         //TODO: check where to use gridLayoutManger, adapter, etc. -> define it outside onCreate()
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
+        gridLayoutManager = new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(gridLayoutManager);
 
         data = RecipeManager.getRecipes();
@@ -68,8 +70,18 @@ public class RecyclerViewActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+
+        RecyclerViewActivity.index = gridLayoutManager.findFirstVisibleItemPosition();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
+        if(RecyclerViewActivity.index != -1) {
+            gridLayoutManager.scrollToPosition(RecyclerViewActivity.index);
+        }
         adapter = new RecipeAdapter(data, listener);
         recyclerView.setAdapter(adapter);
     }
