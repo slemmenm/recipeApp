@@ -7,14 +7,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-
-import java.util.List;
 
 public class RecipeActivity extends AppCompatActivity {
 
@@ -22,7 +17,7 @@ public class RecipeActivity extends AppCompatActivity {
     private static final String ROOM_DB = "room.db";
     private EditText title;
     private EditText description;
-    private String tmpTitel;
+    private String tmpTitle;
     private String tmpDescription;
 
     private static final String FILE_TYPE = "image/*";
@@ -39,28 +34,6 @@ public class RecipeActivity extends AppCompatActivity {
 
         title = findViewById(R.id.recipe_view_title);
         description = findViewById(R.id.recipe_view_description);
-        Log.d("listener2", "onCreate Recipe");
-
-        /*
-        title.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //Log.d("listener2", "before");
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //Log.d("listener2", "on");
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                Log.d("listener2", "after");
-
-            }
-        });*/
 
         imageView = findViewById(R.id.recipe_image_view);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -79,9 +52,9 @@ public class RecipeActivity extends AppCompatActivity {
         super.onResume();
 
 
-        // save tmp titel and description, if image is (re)selected afterwards
-        if(tmpTitel != null) {
-            this.title.setText(tmpTitel);
+        // save tmp title and description, if image is (re)selected afterwards
+        if(tmpTitle != null) {
+            this.title.setText(tmpTitle);
         }
         else {
             final String title = this.getIntent().getStringExtra("title");
@@ -100,13 +73,9 @@ public class RecipeActivity extends AppCompatActivity {
         final String imageUriString = this.getIntent().getStringExtra("imageUriString");
         if(imageUriString != null && !imageChanged) {
             this.imageUriString = imageUriString;
-            Log.d("listener2", this.imageUriString);
             imageUri = Uri.parse(imageUriString);
             this.imageView.setImageURI(Uri.parse(imageUriString));
         }
-
-        Log.d("listener2", "RecipeActivity onResume " + title + description + imageUriString);
-
     }
 
     // to save data to Room
@@ -115,14 +84,9 @@ public class RecipeActivity extends AppCompatActivity {
         super.onPause();
 
         writeOneRecipeToRoom();
-        Log.d("listener2", "onPause Recipe");
-
-
     }
     @Override
     public void onBackPressed() {
-        // your code.
-        Log.d("listener2", "back pressed");
         Intent intent = new Intent();
         intent.putExtra("position", position);
         intent.putExtra("title", this.title.getText().toString());
@@ -141,9 +105,6 @@ public class RecipeActivity extends AppCompatActivity {
         super.onStart();
 
         position = this.getIntent().getIntExtra("id_position", -1);
-        Log.d("listener2", "onStart" + position);
-
-        //readOneRecipeFromRoom(position);
     }
 
     // write one recipe to Room
@@ -168,49 +129,8 @@ public class RecipeActivity extends AppCompatActivity {
         new Thread(write).start();
     }
 
-    // read one recipe from Room
-    // TODO if possible and display it, not needed!
-    private void readOneRecipeFromRoom(int id) {
-        Runnable read = new Runnable() {
-            @Override
-            public void run() {
-                CookbookRoomDatabase db = Room.databaseBuilder(RecipeActivity.this, CookbookRoomDatabase.class, ROOM_DB).build();
-
-                // read only if row with id = id exists, db not prepopulate
-                if(db.cookbookRoomDao().recipeExists(id)) {
-                    CookbookRoom recipe = db.cookbookRoomDao().getOneRecipe(id);
-                    Log.d("listener2", recipe.id + " title:  " + recipe.title + "  description: " + recipe.description);
-                    //title.setText(recipe.title);
-                    //description.setText(recipe.description);
-                }
-                db.close();
-            }
-        };
-        //runOnUiThread(read);
-        new Thread(read).start();
-    }
-
-/*    // read from Room
-    private void readAllRecipesFromRoom() {
-        Runnable read = new Runnable() {
-            @Override
-            public void run() {
-                CookbookRoomDatabase db = Room.databaseBuilder(RecipeActivity.this, CookbookRoomDatabase.class, ROOM_DB).build();
-
-                List<CookbookRoom> entries = db.cookbookRoomDao().getRecipes();
-                for (CookbookRoom recipe : entries) {
-                    Log.d(DEBUG_TAG, "DB CookbookRoom | " + recipe.id + " | " + recipe.title);
-                }
-
-                db.close();
-            }
-        };
-
-        new Thread(read).start();
-    }*/
-
     private void selectImage() {
-        tmpTitel = title.getText().toString();
+        tmpTitle = title.getText().toString();
         tmpDescription = description.getText().toString();
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -225,7 +145,6 @@ public class RecipeActivity extends AppCompatActivity {
         super.onActivityResult(req, res, data);
         if(req == OPEN_DOCUMENT_CODE && res == Activity.RESULT_OK) {
             imageUri = data.getData();
-            Log.d("listener2", "Image src: ..." + imageUri);
             imageView.setImageURI(imageUri);
             imageUriString= imageUri.toString();
             imageChanged = true;
