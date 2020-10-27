@@ -24,7 +24,7 @@
             android:layout_marginTop="20dp"
             android:autofillHints="Add your recipe title here"
             android:inputType="text"
-            android:text="recipe title..."
+            android:text="recipe description..."
             android:textSize="30dp"
             android:textStyle="bold" />
 

@@ -22,6 +22,8 @@ public class RecipeActivity extends AppCompatActivity {
     private static final String ROOM_DB = "room.db";
     private EditText title;
     private EditText description;
+    private String tmpTitel;
+    private String tmpDescription;
 
     private static final String FILE_TYPE = "image/*";
     private static final int OPEN_DOCUMENT_CODE = 1;
@@ -77,12 +79,24 @@ public class RecipeActivity extends AppCompatActivity {
         super.onResume();
 
 
-        final String title = this.getIntent().getStringExtra("title");
-        this.title.setText(title);
+        // save tmp titel and description, if image is (re)selected afterwards
+        if(tmpTitel != null) {
+            this.title.setText(tmpTitel);
+        }
+        else {
+            final String title = this.getIntent().getStringExtra("title");
+            this.title.setText(title);
+        }
 
-        final String description = this.getIntent().getStringExtra("description");
-        this.description.setText(description);
+        if(tmpDescription != null) {
+            this.description.setText(tmpDescription);
+        }
+        else {
+            final String description = this.getIntent().getStringExtra("description");
+            this.description.setText(description);
+        }
 
+        // prevent resetting image in this function onResume after image is changed through image picker
         final String imageUriString = this.getIntent().getStringExtra("imageUriString");
         if(imageUriString != null && !imageChanged) {
             this.imageUriString = imageUriString;
@@ -196,6 +210,8 @@ public class RecipeActivity extends AppCompatActivity {
     }*/
 
     private void selectImage() {
+        tmpTitel = title.getText().toString();
+        tmpDescription = description.getText().toString();
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
