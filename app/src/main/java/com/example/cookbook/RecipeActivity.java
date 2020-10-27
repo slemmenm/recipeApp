@@ -89,6 +89,7 @@ public class RecipeActivity extends AppCompatActivity {
             imageUri = Uri.parse(imageUriString);
             this.imageView.setImageURI(Uri.parse(imageUriString));
         }
+        Log.d("listener2", "RecipeActivity onResume " + title + description + imageUriString);
 
     }
 

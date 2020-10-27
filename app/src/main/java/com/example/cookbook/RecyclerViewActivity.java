@@ -49,12 +49,13 @@ public class RecyclerViewActivity extends AppCompatActivity {
         listener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Log.d("listener2", "position" + position);
+                Log.d("listener2", "RecyclerViewActivity onClick position" + position);
                 Intent intent = new Intent(RecyclerViewActivity.this, RecipeActivity.class);
                 intent.putExtra("id_position", position);
                 intent.putExtra("title", data.get(position).getTitle());
                 intent.putExtra("description", data.get(position).getDescription());
-                intent.putExtra("imageUri", data.get(position).getImageUriString());
+                //Log.d("listener2", data.get(position).getImageUriString());
+                intent.putExtra("imageUriString", data.get(position).getImageUriString());
                 RecyclerViewActivity.this.startActivityForResult(intent, 1);
             }
         };
@@ -100,7 +101,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
                 String title = data.getStringExtra("title");
                 String description = data.getStringExtra("description");
                 String imageUriString = data.getStringExtra("imageUriString");
-                Log.d("listener2", "test....works");
+                Log.d("listener2", "test....works" + imageUriString);
 
                 // update data
                 Recipe recipe = new Recipe(title, description, imageUriString);
