@@ -28,6 +28,7 @@ public class RecipeActivity extends AppCompatActivity {
     ImageView imageView;
     private Uri imageUri;
     private String imageUriString;
+    private Boolean imageChanged = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,12 +84,13 @@ public class RecipeActivity extends AppCompatActivity {
         this.description.setText(description);
 
         final String imageUriString = this.getIntent().getStringExtra("imageUriString");
-        if(imageUriString != null) {
+        if(imageUriString != null && !imageChanged) {
             this.imageUriString = imageUriString;
             Log.d("listener2", this.imageUriString);
             imageUri = Uri.parse(imageUriString);
             this.imageView.setImageURI(Uri.parse(imageUriString));
         }
+
         Log.d("listener2", "RecipeActivity onResume " + title + description + imageUriString);
 
     }
@@ -113,6 +115,7 @@ public class RecipeActivity extends AppCompatActivity {
         intent.putExtra("description", this.description.getText().toString());
         intent.putExtra("imageUriString", this.imageUriString);
         setResult(RESULT_OK, intent);
+        imageChanged = false;
         finish();
     }
 
@@ -206,9 +209,10 @@ public class RecipeActivity extends AppCompatActivity {
         super.onActivityResult(req, res, data);
         if(req == OPEN_DOCUMENT_CODE && res == Activity.RESULT_OK) {
             imageUri = data.getData();
-            imageUriString = imageUri.toString();
             Log.d("listener2", "Image src: ..." + imageUri);
             imageView.setImageURI(imageUri);
+            imageUriString= imageUri.toString();
+            imageChanged = true;
         }
     }
 
