@@ -64,6 +64,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Recipe recipe = this.recipes.get(position);
+        // https://sites.google.com/a/homebrewandtechnology.com/www/blog/recyclevewadaptershowwrongdatawhenscrolling
+        holder.setIsRecyclable(false);
         holder.title.setText(recipe.getTitle());
         if(recipe.getImageUriString() != null) {
             holder.parentView.setImageURI(Uri.parse(recipe.getImageUriString()));
